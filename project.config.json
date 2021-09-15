@@ -10,13 +10,11 @@
 		"minified": true,
 		"newFeature": true,
 		"autoAudits": false,
-		"coverView": true,
-		"showShadowRootInWxmlPanel": true,
-		"scopeDataCheck": false
+		"checkInvalidKey": true
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.0.4",
-	"appid": "wxdfb123c3f1818681",
+	"libVersion": "2.7.1",
+	"appid": "wx44a8878d2bb8c7d8",
 	"projectname": "MiniProgram",
 	"debugOptions": {
 		"hidedInDevtools": []
