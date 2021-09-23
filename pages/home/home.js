@@ -1,35 +1,58 @@
 // pages/home/home.js
+import request from '../../service/network.js'
+
 Page({
   data: {
-    counter: 0,
-    isShow: true
+
   },
-  handleIncrement(event) {
-    console.log('---------', event)
-    this.setData({
-      counter: this.data.counter + 1
+  onLoad: function (options) {
+    // 1.原生的方式发送网络请求
+    this.get_data_origin()
+
+    // 2.使用封装的request发送网络请求
+    // Promise最大的好处就是防止出现回调地狱
+    request({
+      url: 'http://123.207.32.32:8000/recommend'
+    }).then(res => {
+      console.log(res)
+    }).catch(err => {
+      console.log(err)
     })
   },
-  handleTabClick(event) {
-    console.log(event)
-  },
-  handleIncrementCpn() {
-    // 最终目的: 修改my-sel中的counter
-    // 1.获取组件对象
-    const my_sel = this.selectComponent('.sel-class')
-    console.log(my_sel)
-
-    // 2.通过setData修改组件中的数据(不合理)
-    // my_sel.setData({
-    //   counter: my_sel.data.counter + 20
+  get_data_origin() {
+    // 发送网络请求
+    // 1.发送最简单的get请求
+    // wx.request({
+    //   url: 'http://123.207.32.32:8000/recommend',
+    //   success: function(res) {
+    //     console.log(res)
+    //   }
     // })
-
-    // 3.通过方法对数据进行修改
-    my_sel.incrementCounter(10)
-  },
-  handleChangeShow() {
-    this.setData({
-      isShow: !this.data.isShow
-    })
+    // 2.get请求,并且携带参数
+    // wx.request({
+    //   url: 'http://123.207.32.32:8000/home/data',
+    //   data: {
+    //     type: 'sell',
+    //     page: 1
+    //   },
+    //   success: function (res) {
+    //     console.log(res)
+    //   }
+    // })
+    // 3.post请求,并且携带参数
+    // wx.request({
+    //   url: 'http://httpbin.org/post',
+    //   method: 'post',
+    //   data: {
+    //     name: 'coderwhy',
+    //     age: 18
+    //   },
+    //   success: function(res) {
+    //     console.log(res)
+    //   },
+    //   fail: function(err) {
+    //     console.log(err)
+    //   }
+    // })
   }
 })
