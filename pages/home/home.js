@@ -1,64 +1,35 @@
 // pages/home/home.js
 Page({
   data: {
-    titles: ['衣服', '裤子', '鞋子']
+    counter: 0,
+    isShow: true
   },
-  handleBtnClick() {
-    console.log('按钮发生点击')
+  handleIncrement(event) {
+    console.log('---------', event)
+    this.setData({
+      counter: this.data.counter + 1
+    })
   },
-  handleTouchStart() {
-    console.log('handleTouchStart')
-  },
-  handleTouchMove() {
-    console.log('handleTouchMove')
-  },
-  handleTouchEnd() {
-    console.log('handleTouchEnd')
-  },
-  handleTap() {
-    console.log('handleTap')
-  },
-  handleLongpress() {
-    console.log('handleLongpress')
-  },
-  handleEventClick(event) {
-    console.log('-------', event)
-  },
-  handleEventEnd(event) {
-    console.log('+++++++', event)
-  },
-  handleInner(event) {
+  handleTabClick(event) {
     console.log(event)
   },
-  handleOuter(event) {
-    console.log(event)
-  },
-  handleItemClick(event) {
-    console.log(event)
-    // title - index
-    const dataset = event.currentTarget.dataset;
-    const title = dataset.item;
-    const index = dataset.index;
-    console.log(title, index)
-  },
+  handleIncrementCpn() {
+    // 最终目的: 修改my-sel中的counter
+    // 1.获取组件对象
+    const my_sel = this.selectComponent('.sel-class')
+    console.log(my_sel)
 
-  // ----------  事件冒泡和事件捕获
-  handleCaptureView1() {
-    console.log('handleCaptureView1')
+    // 2.通过setData修改组件中的数据(不合理)
+    // my_sel.setData({
+    //   counter: my_sel.data.counter + 20
+    // })
+
+    // 3.通过方法对数据进行修改
+    my_sel.incrementCounter(10)
   },
-  handleBindView1() {
-    console.log('handleBindView1')
-  },
-  handleCaptureView2() {
-    console.log('handleCaptureView2')
-  },
-  handleBindView2() {
-    console.log('handleBindView2')
-  },
-  handleCaptureView3() {
-    console.log('handleCaptureView3')
-  },
-  handleBindView3() {
-    console.log('handleBindView3')
+  handleChangeShow() {
+    this.setData({
+      isShow: !this.data.isShow
+    })
   }
 })
