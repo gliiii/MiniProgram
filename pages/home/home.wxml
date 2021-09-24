@@ -1,28 +1,23 @@
 <!--pages/home/home.wxml-->
-<text class='title'>Hello World</text>
-<button size='mini'>按钮</button>
+<!-- 1.展示轮播图 -->
+<w-swiper list="{{banners}}"/>
 
-<!-- 1.navigator页面跳转 -->
-<navigator url='/pages/detail/detail'>跳到详情页</navigator>
+<!-- 2.推荐数据展示 -->
+<w-recommend recommends="{{recommends}}" bind:imageload="handleImageLoad"/>
 
-<!-- 2.navigator属性: open-type -->
-<navigator url='/pages/detail/detail'
-           open-type='redirect'>
-  跳到详情页(redirect)
-</navigator>
-<navigator url='/pages/about/about'
-           open-type='switchTab'>
-  跳到关于页(switchTab)
-</navigator>
+<!-- 3.展示本周流行 -->
+<w-popular/>
 
-<navigator url='/pages/detail/detail'
-           open-type='reLaunch'>
-  跳到详情页(reLaunch)
-</navigator>
+<!-- 4.tab-control -->
+<w-tab-control titles="{{titles}}"
+               bind:tabclick="handleTabClick"
+               id="tab-control"
+               class="{{isTabFixed ? 'fixed': ''}}"/>
+<w-tab-control titles="{{titles}}" wx:if="{{isTabFixed}}"/>
 
-<!-- 3.跳转过程中数据的传递 -->
-<navigator url='/pages/detail/detail?name=why&age=18&height=1.88'>跳到详情页</navigator>
-<view>{{title}}</view>
+<!-- 5.展示商品数据 -->
+<w-goods goods="{{goods[currentType].list}}"/>
 
-<!-- 4.通过代码进行页面跳转 -->
-<button size='mini' bind:tap="handlePushDetail">跳到详情页</button>
+<!-- 6.回到顶部 -->
+<!-- hidden: hidden属于对于自定义的组件是无效 -->
+<w-back-top wx:if="{{showBackTop}}"/>
