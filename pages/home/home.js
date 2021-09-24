@@ -1,58 +1,66 @@
 // pages/home/home.js
-import request from '../../service/network.js'
-
 Page({
-  data: {
-
-  },
-  onLoad: function (options) {
-    // 1.原生的方式发送网络请求
-    this.get_data_origin()
-
-    // 2.使用封装的request发送网络请求
-    // Promise最大的好处就是防止出现回调地狱
-    request({
-      url: 'http://123.207.32.32:8000/recommend'
-    }).then(res => {
-      console.log(res)
-    }).catch(err => {
-      console.log(err)
+  handleShowToast() {
+    wx.showToast({
+      title: '加载中ing',
+      duration: 3000,
+      icon: 'loading',
+      // image: "/assets/icon/icon.png"
+      mask: true,
+      success: function() {
+        console.log('展示弹窗成功')
+      },
+      fail: function() {
+        console.log('展示弹窗失败')
+      },
+      complete: function() {
+        console.log('完成函数的调用')
+      }
     })
   },
-  get_data_origin() {
-    // 发送网络请求
-    // 1.发送最简单的get请求
-    // wx.request({
-    //   url: 'http://123.207.32.32:8000/recommend',
-    //   success: function(res) {
-    //     console.log(res)
-    //   }
-    // })
-    // 2.get请求,并且携带参数
-    // wx.request({
-    //   url: 'http://123.207.32.32:8000/home/data',
-    //   data: {
-    //     type: 'sell',
-    //     page: 1
-    //   },
-    //   success: function (res) {
-    //     console.log(res)
-    //   }
-    // })
-    // 3.post请求,并且携带参数
-    // wx.request({
-    //   url: 'http://httpbin.org/post',
-    //   method: 'post',
-    //   data: {
-    //     name: 'coderwhy',
-    //     age: 18
-    //   },
-    //   success: function(res) {
-    //     console.log(res)
-    //   },
-    //   fail: function(err) {
-    //     console.log(err)
-    //   }
-    // })
+  handleShowModal() {
+    wx.showModal({
+      title: '我是标题',
+      content: '我是内容,哈哈哈',
+      // showCancel: false,
+      cancelText: '退出',
+      cancelColor: 'red',
+      success: function(res) {
+        console.log(res)
+        if (res.cancel) {
+          console.log('用户点击了取消按钮')
+        }
+        if (res.confirm) {
+          console.log('用户点击了确定按钮')
+        }
+      }
+    })
+  },
+  handleShowLoading() {
+    wx.showLoading({
+      title: '加载ing',
+      mask: true
+    })
+
+    setTimeout(() => {
+      // 必须手动hideLoading才会让loading消失
+      wx.hideLoading()
+    }, 1000)
+  },
+  handleShowAction() {
+    wx.showActionSheet({
+      itemList: ['相册', '拍照'],
+      itemColor: 'red',
+      success: function(res) {
+        console.log(res)
+      }
+    })
+  },
+  onShareAppMessage: function(options) {
+    return {
+      title: '你好啊,李银河',
+      path: '/pages/about/about',
+      imageUrl: 'http://s3.mogucdn.com/mlcdn/c45406/170915_0a93207ci28kelh617k4hh62l65lb_640x960.jpg'
+    }
   }
 })
